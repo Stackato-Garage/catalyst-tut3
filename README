@@ -1,1 +1,3 @@
 Run script/myapp_server.pl to test the application.
+
+Run 'stackato push tut3' to deploy this application on Stackato.
