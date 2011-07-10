@@ -1,0 +1,35 @@
+[% # This is a TT comment.  The '-' at the end "chomps" the newline.  You won't -%]
+[% # see this "chomping" in your browser because HTML ignores blank lines, but  -%]
+[% # it WILL eliminate a blank line if you view the HTML source.  It's purely   -%]
+[%- # optional, but both the beginning and the ending TT tags support chomping. -%]
+
+[% # Provide a title -%]
+[% META title = 'Book List' -%]
+
+<table>
+<tr><th>Title</th><th>Rating</th><th>Author(s)</th></tr>
+[% # Display each book in a table row %]
+[% FOREACH book IN books -%]
+  <tr>
+    <td>[% book.title %]</td>
+    <td>[% book.rating %]</td>
+    <td>
+      [% # NOTE: See Chapter 4 for a better way to do this!                      -%]
+      [% # First initialize a TT variable to hold a list.  Then use a TT FOREACH -%]
+      [% # loop in 'side effect notation' to load just the last names of the     -%]
+      [% # authors into the list. Note that the 'push' TT vmethod doesn't return -%]
+      [% # a value, so nothing will be printed here.  But, if you have something -%]
+      [% # in TT that does return a value and you don't want it printed, you     -%]
+      [% # 1) assign it to a bogus value, or                                     -%]
+      [% # 2) use the CALL keyword to call it and discard the return value.      -%]
+      [% tt_authors = [ ];
+         tt_authors.push(author.last_name) FOREACH author = book.authors %]
+      [% # Now use a TT 'virtual method' to display the author count in parens   -%]
+      [% # Note the use of the TT filter "| html" to escape dangerous characters -%]
+      ([% tt_authors.size | html %])
+      [% # Use another TT vmethod to join & print the names & comma separators   -%]
+      [% tt_authors.join(', ') | html %]
+    </td>
+  </tr>
+[% END -%]
+</table>
