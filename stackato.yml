@@ -1,0 +1,18 @@
+name: tut3
+
+env:
+  CATALYST_HOME: $HOME
+
+requirements:
+  ppm:
+    - Catalyst::Runtime
+    - Catalyst::Engine::PSGI
+    - Plack::Middleware::ReverseProxy
+    - Catalyst::Plugin::ConfigLoader
+    - Catalyst::Plugin::Static::Simple
+    - Catalyst::Plugin::StackTrace
+    - Catalyst::Action::RenderView
+    - Catalyst::Model::DBIC::Schema
+    - Catalyst::View::TT
+    - Config::General
+    - DBIx::Class
